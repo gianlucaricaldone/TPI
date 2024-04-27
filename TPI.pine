@@ -73,6 +73,13 @@ rsi_value = rsi_signal()
 supertrend_value = supertrend_signal()
 smi_value = smi_signal()
 
-plot(macd_value, color = color.blue)
+TPI_total = (aroon_value + dmi_value + macd_value + sar_value + rsi_value + supertrend_value + smi_value) / 7
+plot_color = color.gray
+if TPI_total >= 0.5
+    plot_color = color.green
+else if TPI_total <= -0.5
+    plot_color = color.red
+
+plot(macd_vTPI_totalalue, color = plot_color)
 
 

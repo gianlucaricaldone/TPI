@@ -87,12 +87,19 @@ sar_value = sar_signal()
 rsi_value = rsi_signal()
 supertrend_value = supertrend_signal()
 smi_value = smi_signal()
-
 TPI_total = (aroon_value + dmi_value + macd_value + sar_value + rsi_value + supertrend_value + smi_value) / 7
+
+// Grafica
 plot_color = color.gray
 if TPI_total >= 0.5
     plot_color := color.green
 else if TPI_total <= -0.5
     plot_color := color.red
 
-plot(TPI_total, color = plot_color, linewidth = 3)
+// Grafica
+hline(0, title = "0", color = color.gray, linestyle = hline.style_dotted, linewidth = 1)
+hline(0.5, title = "BUY", color = color.green, linestyle = hline.style_dotted, linewidth = 1)
+hline(-0.5, title = "SELL", color = color.red, linestyle = hline.style_dotted, linewidth = 1)
+plot(TPI_total, color = plot_color, linewidth = 2, style=plot.style_histogram)
+plot(TPI_total, color = plot_color, linewidth = 2, style=plot.style_area)
+// plot(TPI_total, color = plot_color, linewidth = 2, style=plot.style_columns)

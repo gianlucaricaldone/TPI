@@ -46,10 +46,21 @@ macd_signal() =>
         valore = -1
 
 
-
-
 // 4 - Parabolic SAR
+sar_signal() =>
+    start = input.float(title="Start", defval=0.02, step=0.01)
+    inc = input.float(title="Inc", defval=0.01, step=0.01)
+    max = input.float(title="Max", defval=0.2, step=0.01)
+
+    PSAR = ta.sar(start, inc, max)
+    valore = PSAR < low? 1:-1
+
+
 // 5 - RSI
+rsi_signal() =>
+    ta.rsi(close, 14)
+
+
 // 6 - SUPERTREND
 // 7 - SMI
 
@@ -57,6 +68,7 @@ macd_signal() =>
 aroon_value = aroon_signal()
 dmi_value = dmi_signal()
 macd_value = macd_signal()
+sar_value = sar_signal()
 
 plot(macd_value, color = color.blue)
 

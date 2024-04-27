@@ -80,6 +80,6 @@ if TPI_total >= 0.5
 else if TPI_total <= -0.5
     plot_color = color.red
 
-plot(macd_vTPI_totalalue, color = plot_color)
+plot(TPI_total, color = plot_color)
 
 

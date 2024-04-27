@@ -76,10 +76,8 @@ smi_value = smi_signal()
 TPI_total = (aroon_value + dmi_value + macd_value + sar_value + rsi_value + supertrend_value + smi_value) / 7
 plot_color = color.gray
 if TPI_total >= 0.5
-    plot_color = color.green
+    plot_color := color.green
 else if TPI_total <= -0.5
-    plot_color = color.red
+    plot_color := color.red
 
 plot(TPI_total, color = plot_color)
-
-

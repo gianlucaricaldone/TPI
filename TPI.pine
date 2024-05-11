@@ -2,7 +2,7 @@
 // © davidriogita
 
 //@version=5
-indicator(title="TPI", shorttitle= "TPI Alert", overlay=true, max_bars_back = 21)
+indicator(title="TPI", shorttitle= "TPI Alert", overlay=false, max_bars_back = 21)
 
 // 1 - AROON
 aroon_signal() =>

@@ -9,10 +9,20 @@ aroon_signal() =>
     length = input.int(14, minval=1)
     upper = 100 * (ta.highestbars(high, length+1) + length)/length
     lower = 100 * (ta.lowestbars(low, length+1) + length)/length
+    valore = 0.0
+
     if upper == lower
-        valore = 0
-    else
-        valore = upper > lower? 1:-1
+        valore := 0
+    else if lower == 0 and upper > 50
+        valore := 1
+    else if upper == 0 and lower > 50
+        valore := -1
+    else 
+        cof = upper - lower
+        if cof > 0
+            valore := cof >= 50? 1:0.5
+        else
+            valore := cof <= -50? -1:-0.5
 
 
 // 2 - DMI
@@ -56,7 +66,34 @@ sar_signal() =>
 // 5 - RSI
 rsi_signal() =>
     rsi = ta.rsi(close, 14)
-    valore = rsi > 50? 1:-1
+    ma_rsi = ta.sma(rsi, 14)
+
+    valore = 0.0
+    i_max = 0.5
+    i_mid = 0.25
+    i_min = 0.15
+
+    if rsi > 50
+        valore := i_max
+    else
+        valore := - i_max
+
+    if rsi > 75 
+        valore := valore - i_min
+    else if rsi > 80 
+        valore := valore - i_mid
+    else if rsi < 30 
+        valore := valore + i_min
+    else if rsi < 25 
+        valore := valore + i_mid
+
+    if rsi > ma_rsi
+        valore := valore + i_max
+    else
+        valore := valore - i_max
+
+
+
 
 
 // 6 - SUPERTREND
@@ -109,3 +146,4 @@ hline(TPI_buy_coeff, title = "BUY", color = color.green, linestyle = hline.style
 hline(TPI_sell_coeff, title = "SELL", color = color.red, linestyle = hline.style_dotted, linewidth = 1)
 plot(TPI_total, color = plot_color, linewidth = 2)
 plot(TPI_total, color = plt_color_ts, linewidth = 2, style=plot.style_area)
+
